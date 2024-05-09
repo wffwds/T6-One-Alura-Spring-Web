@@ -4,8 +4,10 @@ import br.com.ffwds.screenmatch.model.DadosEpisodio;
 import br.com.ffwds.screenmatch.model.DadosSerie;
 import br.com.ffwds.screenmatch.model.DadosTemporada;
 import br.com.ffwds.screenmatch.principal.Principal;
+import br.com.ffwds.screenmatch.repository.SerieRepository;
 import br.com.ffwds.screenmatch.service.ConsumoAPI;
 import br.com.ffwds.screenmatch.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +19,9 @@ import java.util.List;
 @SpringBootApplication
 public class SpringSemWebApplication implements CommandLineRunner{
 
+	@Autowired
+	private SerieRepository repositorio;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringSemWebApplication.class, args);
 	}
@@ -24,7 +29,7 @@ public class SpringSemWebApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-		Principal principal = new Principal();
+		Principal principal = new Principal(repositorio);
 		principal.exibeMenu();
 	}
 }
